@@ -58,14 +58,16 @@ irmaos(Irmao1, Irmao2):- %Ha repeticao de irmao porque verifica progenitor pai e
     progenitor(Genitor, Irmao2),
     Irmao1 \= Irmao2.
 
-avos(Avo, Neto):- %Ha repeticao de netos quando verificou avô paterno
-    mae(Avo, Filho),
-    mae(Filho, Neto);
-    pai(Avo, Filho),
-    pai(Filho, Neto).
+avos(Avo, Neto):- 
+    progenitor(Avo, Filho),
+    progenitor(Filho, Neto).
 
 tios(Tio, Sobrinho):- %Ha repeticao de sobrinhos quando verificou tios. Alem disso trata apenas tios de sangue
     irmaos(Tio, Pais),
     pai(Pais, Sobrinho);
     irmaos(Tio, Pais),
     mae(Pais, Sobrinho).
+
+primos(Primo1, Primo2):- %Ha repeticao de primos. Aparece o primo por parte de pai assim
+    mae(Mae, Primo1),
+    tios(Mae, Primo2).
