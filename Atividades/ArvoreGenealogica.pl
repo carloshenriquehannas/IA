@@ -1,47 +1,47 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Fatos %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-fem(dione).
-fem(helena).
-fem(maria).
-fem(vania).
-fem(clelia).
-fem(soraia).
-fem(clara).
+fem(dh).
+fem(hh).
+fem(me).
+fem(vh).
+fem(cp).
+fem(so).
+fem(mc).
 
-masc(carlos).
-masc(caique).
-masc(guilherme).
-masc(alaim).
-masc(leonardo).
-masc(hermano).
-masc(waldeciro).
-masc(julio).
-masc(kiko).
+masc(ca).
+masc(ch).
+masc(lg).
+masc(al).
+masc(lh).
+masc(hs).
+masc(wc).
+masc(jc).
+masc(mv).
 
-progenitor(dione, caique).
-progenitor(dione, guilherme).
-progenitor(dione, helena).
-progenitor(carlos, caique).
-progenitor(carlos, guilherme).
-progenitor(carlos, helena).
+progenitor(dh, ch).
+progenitor(dh, lg).
+progenitor(dh, hh).
+progenitor(ca, ch).
+progenitor(ca, lg).
+progenitor(ca, hh).
 
-progenitor(maria, leonardo).
-progenitor(maria, hermano).
-progenitor(alaim, leonardo).
-progenitor(alaim, hermano).
+progenitor(me, lh).
+progenitor(me, hs).
+progenitor(al, lh).
+progenitor(al, hs).
 
-progenitor(vania, dione).
-progenitor(vania, maria).
-progenitor(waldeciro, dione).
-progenitor(waldeciro, maria).
+progenitor(vh, dh).
+progenitor(vh, me).
+progenitor(wc, dh).
+progenitor(wc, me).
 
-progenitor(clelia, carlos).
-progenitor(clelia, kiko).
-progenitor(julio, carlos).
-progenitor(julio, kiko).
+progenitor(cp, ca).
+progenitor(cp, mv).
+progenitor(jc, ca).
+progenitor(jc, mv).
 
-progenitor(soraia, clara).
-progenitor(kiko, clara).
+progenitor(so, mc).
+progenitor(mv, mc).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Regras %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
