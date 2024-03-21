@@ -3,19 +3,16 @@
 %Atividade de listas em PROLOG
 
 %Encontrar o primeiro elemento de uma lista
-primeiro_elemento([X|_], X).   
+primeiro_elemento(Elemento, [Elemento|_]).   
 
 %Encontrar o ultimo elemento de uma lista
-ultimo_elemento([X], X).
-ultimo_elemento([_|Z], X):-     
-    ultimo_elemento(Z, X).      
+ultimo_elemento(Elemento, [Elemento]). %Caso em que a lista tem apenas um elemento
+ultimo_elemento(Elemento, [_|Cauda]):-     
+    ultimo_elemento(Elemento, Cauda).      
 
 %Retirar os elementos, com mais de uma ocorrencia, da lista
 
-%Encontrar o maior elemento da lista. DANDO ERRO
-maior_elemento([X], X).
-maior_elemento([Y|Resto], X):-
-    	Y > X:-
-    		maior_elemento(Y, X).
+%Encontrar o maior elemento da lista
+maior_elemento(Elemento, [Elemento]) %Caso em que a lista tem apenas um elemento
 
 %Quicksort
