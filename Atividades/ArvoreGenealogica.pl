@@ -56,8 +56,7 @@ mae(Mae, Filho):-
 irmaos(Irmao1, Irmao2):- %Ha repeticao de irmao porque verifica progenitor pai e mae (linha 10-15)
     progenitor(Genitor, Irmao1),
     progenitor(Genitor, Irmao2),
-    Irmao1 \= Irmao2,
-    !.
+    Irmao1 \= Irmao2.
 
 avos(Avo, Neto):- 
     progenitor(Avo, Filho),

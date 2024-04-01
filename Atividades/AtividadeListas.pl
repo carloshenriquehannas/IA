@@ -10,7 +10,7 @@ ultimo([Elemento], Elemento). %Caso em que a lista tem apenas um elemento
 ultimo([ _ | Cauda], Elemento):-     
     ultimo(Cauda, Elemento).
 
-% Soma os elementos de uma lista
+%Soma os elementos de uma lista
 soma([], 0).
 soma([X| Resto], Soma) :-
     soma(Resto, RestoSoma),
@@ -36,7 +36,7 @@ maior_elemento([Head | Rest], Max) :-
     maior_elemento(Rest, Max),
     (   Max = undefined ; Head =< Max ).
 
-% Realizar a ordenação de uma lista com o algoritmo do quicksort.
+%Realizar a ordenação de uma lista com o algoritmo do quicksort.
 quicksort([], []).
 quicksort([Pivot|Rest], Sorted) :-
     partition(Rest, Pivot, Smaller, Greater),
@@ -44,7 +44,7 @@ quicksort([Pivot|Rest], Sorted) :-
     quicksort(Greater, SortedGreater),
     append(SortedSmaller, [Pivot|SortedGreater], Sorted).
 
-% Predicado que faz a partição.
+%Predicado que faz a partição.
 partition([], _, [], []).
 partition([X|Xs], Pivot, [X|Smaller], Greater) :-
     X =< Pivot,
