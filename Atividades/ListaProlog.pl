@@ -1,6 +1,6 @@
 % Exercicio 4
 
-%Declaracao de fatos: aa viagem de onibus(origem, destino)
+%Fatos: ha viagem de onibus partindo de (origem, destino)
 onibus(araraquara, saocarlos).
 onibus(barretos, franca).
 onibus(bauru, botucatu).
@@ -10,22 +10,9 @@ onibus(marilia, bauru).
 onibus(ribeirao, araraquara).
 onibus(saocarlos, bauru).
 
-%Regras: viagem entre uma origem e um destino. ERRO QUANDO A VIAGEM NAO EH DIRETA
-viagemEntre(Origem, Destino):-
-    onibus(Origem, Destino).    %Caso em que ha onibus direto
-    viagem(Origem, [Origem|Caminho], [Origem|Caminho]).
-    viagem(Origem, [Ultima_Cidade|Caminho_Agora], Caminho):-
-        onibus(Nova_Cidade, Ultima_Cidade),
-        not(pertence(Nova_Cidade, Caminho_Agora)),
-        viagem(Origem, [Nova_Cidade, Ultima_Cidade|Caminho_Agora], Caminho).
-
-pertence(Cidade, [Cidade|_]):- !.
-pertence(Cidade, [_|Cidade]):- 
-    pertence(Cidade, Caminho).
-
-        
-
-
-
-
+%Regras: viagem entre uma origem e um destino, com 0 ou mais cidades intermediarias
+viagem_entre(Origem, Destino):-
+    onibus(Origem, Destino).                                %Caso em que ha viagem direta
+viagem_entre(Origem, Destino):-
+    onibus(Origem, Parada), viagem_entre(Parada, Destino).  %Caso em que ha cidade(s) intermediaria(s)
     
