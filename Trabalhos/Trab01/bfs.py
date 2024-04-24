@@ -33,7 +33,7 @@ for origem in df.index:
             G.add_edge(origem, destino, weight=peso)
 
 def calcular_custo_total(caminho,grafo):
-    custo =0
+    custo = 0
     for i in range(len(caminho)-1):
         origem = caminho[i]
         destino = caminho[i+1]
@@ -42,26 +42,41 @@ def calcular_custo_total(caminho,grafo):
     return custo
 
 num_visitados = 0
+solucao = {}
 
-def dfs_caminho(grafo, atual, destino, visitados, caminho):
+def bfs_caminho(grafo, inicio, destino):
 
     global num_visitados
 
-    visitados.add(atual)
-    caminho.append(atual)
+    queue = [inicio]
+    visitados = {inicio}
+    edge_to = {inicio : None}
     num_visitados += 1
 
-    if(atual == destino):
-        print("Caminho final:", caminho)
-        custo = calcular_custo_total(caminho, G)
-        print(tipoCusto, "total do caminho foi:", custo)
-        return True
-    for vizinhos in grafo.successors(atual):
-        if vizinhos not in visitados:
-            if(dfs_caminho(grafo, vizinhos, destino, visitados,caminho)):
-                return True
-    caminho.pop()
-    return False
+    while queue:
+        atual = queue.pop(0)
+
+        if (atual == destino):
+            return edge_to
+
+        for vizinho in grafo[atual]:
+            if vizinho not in visitados:
+                queue.append(vizinho)
+                visitados.add(vizinho)
+                edge_to[vizinho] = atual
+
+    return None
+
+def caminho_final(edge_to, end):
+    if edge_to is None:
+        return None
+
+    curr = end
+    res = []
+    while curr is not None:
+        res.append(curr)
+        curr = edge_to[curr]
+    return list(reversed(res))
 
 inicio = input("Digite o nó de início: ")
 fim = input("Digite o nó de destino: ")
@@ -73,8 +88,13 @@ if not G.has_node(inicio) or not G.has_node(fim):
 visitados = set()
 caminho_atual = []
 
-if(dfs_caminho(G,inicio,fim,visitados,caminho_atual)):
+edge_to = bfs_caminho(G,inicio,fim)
+if(edge_to):
     print("O numero de nós visitados foi:", num_visitados)
+    caminho = caminho_final(edge_to, fim)
+    print("Caminho final:", caminho)
+    custo = calcular_custo_total(caminho, G)
+    print(tipoCusto, "total do caminho foi:", custo)
 else:
     print("Não há caminho entre os nós de inicio e destino")
 
