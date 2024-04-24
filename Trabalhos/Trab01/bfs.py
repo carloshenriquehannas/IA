@@ -55,13 +55,13 @@ def dfs_caminho(grafo, atual, destino, visitados, caminho):
         print("Caminho final:", caminho)
         custo = calcular_custo_total(caminho, G)
         print(tipoCusto, "total do caminho foi:", custo)
-    else:
-        for vizinhos in grafo[atual]:
-            if vizinhos not in visitados:
-                num_visitados +=1
-                dfs_caminho(grafo, vizinhos, destino, visitados,caminho)
+        return True
+    for vizinhos in grafo.successors(atual):
+        if vizinhos not in visitados:
+            if(dfs_caminho(grafo, vizinhos, destino, visitados,caminho)):
+                return True
     caminho.pop()
-    return num_visitados
+    return False
 
 inicio = input("Digite o nó de início: ")
 fim = input("Digite o nó de destino: ")
@@ -73,6 +73,8 @@ if not G.has_node(inicio) or not G.has_node(fim):
 visitados = set()
 caminho_atual = []
 
-dfs_caminho(G,inicio,fim,visitados,caminho_atual)
-print("O numero de nós visitados foi:", num_visitados)
+if(dfs_caminho(G,inicio,fim,visitados,caminho_atual)):
+    print("O numero de nós visitados foi:", num_visitados)
+else:
+    print("Não há caminho entre os nós de inicio e destino")
 
