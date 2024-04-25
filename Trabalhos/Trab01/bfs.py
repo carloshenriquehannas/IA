@@ -24,7 +24,7 @@ else:
 
 
 # Usa a biblioteca networkx para criar um grafo direcionado
-Grafo = nx.DiGraph()
+Grafo = nx.Graph()
 
 # Adiciona os nós do dataframe ao grafo
 Grafo.add_nodes_from(df.index)
@@ -51,12 +51,13 @@ def calcular_custo_total(caminho,grafo):
     return custo
 
 # Numero total de nós visitados
-num_visitados = 0
+#num_visitados = 0
 
 # Função para fazer a busca em largura
 def bfs_caminho(grafo, inicio, destino):
 
-    global num_visitados
+    # numero de nos visitados
+    num_visitados = 0
 
     # Adiciona o nó inicial a fila e ao conjunto de visitados
     queue = [inicio]
@@ -71,7 +72,7 @@ def bfs_caminho(grafo, inicio, destino):
         # condição de parada se chegar ao destino
         if (atual == destino):
             # retorna o dicionário com os nós anteriores para achar o caminho final
-            return antecessores
+            return antecessores, num_visitados
 
         # Explora os vizinhos do nó atual 
         for vizinho in grafo[atual]:
@@ -83,7 +84,7 @@ def bfs_caminho(grafo, inicio, destino):
                 num_visitados += 1 # incrementa o número de nós visitados
 
     # Caso não encontre nenhum caminho
-    return None
+    return None, num_visitados
 
 # Função para encontrar o caminho final
 def caminho_final(antecessores, final):
@@ -109,7 +110,7 @@ if not Grafo.has_node(inicio) or not Grafo.has_node(fim):
     sys.exit()  # Encerra o programa
 
 # Faz a busca em largura
-antecessores = bfs_caminho(Grafo,inicio,fim)
+antecessores, num_visitados = bfs_caminho(Grafo,inicio,fim)
 
 # Verifica se a busca foi bem sucedida 
 if(antecessores):

@@ -51,7 +51,6 @@ def buscaBFS(tipoCusto, inicio, fim):
         return custo
 
     # Numero total de nós visitados
-    num_visitados = 0
 
     # Função para fazer a busca em largura
     def bfs_caminho(grafo, inicio, destino):
@@ -69,7 +68,7 @@ def buscaBFS(tipoCusto, inicio, fim):
             # condição de parada se chegar ao destino
             if (atual == destino):
                 # retorna o dicionário com os nós anteriores para achar o caminho final
-                return antecessores
+                return antecessores ,num_visitados
 
             # Explora os vizinhos do nó atual 
             for vizinho in grafo[atual]:
@@ -81,7 +80,7 @@ def buscaBFS(tipoCusto, inicio, fim):
                     num_visitados += 1 # incrementa o número de nós visitados
 
         # Caso não encontre nenhum caminho
-        return None
+        return None, num_visitados
 
     # Função para encontrar o caminho final
     def caminho_final(antecessores, final):
@@ -103,7 +102,7 @@ def buscaBFS(tipoCusto, inicio, fim):
         sys.exit()  # Encerra o programa
 
     # Faz a busca em largura
-    antecessores = bfs_caminho(Grafo,inicio,fim)
+    antecessores,num_visitados = bfs_caminho(Grafo,inicio,fim)
 
     # Verifica se a busca foi bem sucedida 
     if(antecessores):
