@@ -62,7 +62,7 @@ def aStar(tipoCusto, inicio, fim):
         nosVisitados = 0
         
         # Cria uma fila de prioridade     
-        nosAbertos[]
+        nosAbertos = []
         nosFechados = set()
 
         noInicial = Node(inicio, g=0, h=heuristica[inicio])
