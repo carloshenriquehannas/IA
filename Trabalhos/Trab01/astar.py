@@ -50,10 +50,14 @@ def aStar(tipoCusto, inicio, fim):
         print("\nNós de entrada invalidos\n")
         sys.exit()
 
-
+    # Le as distancias de manhattan entre as cidades e o objetivo e registra elas em um vetor
     def lerHeuristica(caminhoHeuristica, fim):
-        
+        df2 = pd.read_excel(caminhoHeuristica,sheet_name = "DistânciaReal (km)",index_col = 0) 
+        for cidade in df.index:
+            heuristica[cidade] = df2.loc[cidade, fim]
+        return heuristica
 
+    #Algoritmo busca A*
     def busca_astar(grafo, inicio, fim, heuristica):
         nosVisitados = 0
         
@@ -61,7 +65,7 @@ def aStar(tipoCusto, inicio, fim):
         nosAbertos[]
         nosFechados = set()
 
-        noInicial = Node(inicio, g=0, h=heuristica(inicio, fim))
+        noInicial = Node(inicio, g=0, h=heuristica[inicio])
         heapq.heappush(nosAbertos,noInicial)
 
         # Corpo do algoritmo
@@ -74,10 +78,11 @@ def aStar(tipoCusto, inicio, fim):
             if (noAtual.cidade == fim):
                 #retorna os antecessores e o numero de nos visitados
                 caminho = []
+                custo = noAtual.g
                 while noAtual:
                     caminho.append(noAtual.cidade)
                     noAtual = noAtual.antecessor
-                return caminho, nosVisitados 
+                return caminho, nosVisitados, custo  
         
             nosFechados.add(noAtual.cidade)
 
@@ -88,7 +93,7 @@ def aStar(tipoCusto, inicio, fim):
                     continue
 
                 g = atual.g + grafo.get_edge_data(vizinho, atual.cidade)['weight'] 
-                h = heuristica(vizinho, fim)
+                h = heuristica[vizinho]
                 novoNo = Node(vizinho, noAtual, g, h)
 
                 # Checa se ja existe um caminho melhor para esse no
@@ -104,9 +109,9 @@ def aStar(tipoCusto, inicio, fim):
     caminhoHeuristica = 'ViagensOrigemDestino.xlsx'
     heuristica = lerHeuristica(caminhoHeuristica, fim)
 
-    caminho, nosVisitados = busca_astar(grafo, inicio, fim, heuristica)
+    caminho, nosVisitados, custo = busca_astar(grafo, inicio, fim, heuristica)
 
-
+    return caminho, custo, nosVisitados  
 
 
 
