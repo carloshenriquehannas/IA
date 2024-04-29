@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from bfs_v2 import buscaBFS
+from astar import aStar
 
 custos = {
     'Tempo': '1',
@@ -17,6 +18,9 @@ unidade = {
 def search(tipo_busca_input, tipo_custo_input, no_inicial, no_final):
     if tipo_busca_input == 'BFS - Busca em Largura':
         caminho, custo, num_visitados = buscaBFS(custos[tipo_custo_input], no_inicial, no_final)
+        return {"caminho": caminho, "custo": custo, "visitados": num_visitados}
+    elif tipo_busca_input == 'A*':
+        caminho, custo, num_visitados = aStar(custos[tipo_custo_input], no_inicial, no_final)
         return {"caminho": caminho, "custo": custo, "visitados": num_visitados}
 
 st.title("Otimizador de Rotas da Pássaro Marron")
