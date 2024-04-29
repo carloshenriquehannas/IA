@@ -89,7 +89,7 @@ def aStar(tipoCusto, inicio, fim):
         
             nosFechados.add(noAtual.cidade)
 
-            print("\n No atual: ", noAtual.cidade, "\n Custo: ", noAtual.g + noAtual.h, "\n") 
+            # print("\n No atual: ", noAtual.cidade, "\n Custo: ", noAtual.g + noAtual.h, "\n") 
 
             # Avalia os nos vizinhos e os insere na lista
             for vizinho in grafo[noAtual.cidade]:
@@ -100,7 +100,7 @@ def aStar(tipoCusto, inicio, fim):
                 g = noAtual.g + grafo.get_edge_data(vizinho, noAtual.cidade)['weight'] 
                 h = heuristica[vizinho]
                 novoNo = Node(vizinho, noAtual, g, h)
-                print("\n Novo no: ", novoNo.cidade, "\n Custo: ", novoNo.g, "\nHeuristica: ", novoNo.h, "\n") 
+                # print("\n Novo no: ", novoNo.cidade, "\n Custo: ", novoNo.g, "\nHeuristica: ", novoNo.h, "\n") 
 
                 # Checa se ja existe um caminho melhor para esse no
                 for no in nosAbertos:
@@ -110,7 +110,7 @@ def aStar(tipoCusto, inicio, fim):
                     #Caso cotrario, insere o novo no
                     heapq.heappush(nosAbertos, novoNo)
 
-                print("\n Numero de nos abertos: ", nosAbertos.count, "\n")
+                # print("\n Numero de nos abertos: ", nosAbertos.count, "\n")
         return None, nosVisitados # Nao achou caminho
     
     caminhoHeuristica = 'ViagensOrigemDestino.xlsx'

@@ -33,19 +33,21 @@ plt.title('Frequência de nós visitados no BFS')
 plt.show()
 
 # A*
-
-nos_visitados_lista = []
+nos_visitados_lista2 = []
 tempos_a = []
+erros = []
 
 for dupla in duplas_cidades:
     origem, destino = dupla
     inicio = time()
-    _, _, num_visitados = aStar('1', origem, destino)
+    _, _, num_visitados = aStar('2', origem, destino)        
     tempos_a.append(time() - inicio)
-    nos_visitados_lista.append(num_visitados)
+    nos_visitados_lista2.append(num_visitados)
+
+print(nos_visitados_lista2)
 
 frequencia = {}
-for num in nos_visitados_lista:
+for num in nos_visitados_lista2:
     frequencia[num] = frequencia.get(num, 0) + 1
 
 plt.bar(frequencia.keys(), frequencia.values())
