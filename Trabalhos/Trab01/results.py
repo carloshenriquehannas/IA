@@ -19,7 +19,7 @@ tempos_bfs = []
 for dupla in duplas_cidades:
     origem, destino = dupla
     inicio = time()
-    _, _, num_visitados = buscaBFS('1', origem, destino)
+    _, _, num_visitados = buscaBFS('3', origem, destino)
     tempos_bfs.append(time() - inicio)
     nos_visitados_lista.append(num_visitados)
 
@@ -36,7 +36,7 @@ erros = []
 for dupla in duplas_cidades:
     origem, destino = dupla
     inicio = time()
-    _, _, num_visitados = aStar('1', origem, destino)        
+    _, _, num_visitados = aStar('3', origem, destino)        
     tempos_a.append(time() - inicio)
     nos_visitados_lista2.append(num_visitados)
 
@@ -57,7 +57,7 @@ barras2 = plt.bar(posicoes + largura / 2, [frequencia2.get(chave, 0) for chave i
 
 plt.xlabel('Número de nós visitados')
 plt.ylabel('Frequência')
-plt.title('Frequência de nós visitados no BFS e A* - Custo tempo')
+plt.title('Frequência de nós visitados no BFS e A* - Custo combustível')
 plt.xticks(posicoes, chaves)
 plt.legend()
 
