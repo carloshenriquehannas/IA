@@ -54,8 +54,9 @@ def aStar(tipoCusto, inicio, fim):
     def lerHeuristica(caminhoHeuristica, fim):
         df2 = pd.read_excel(caminhoHeuristica,sheet_name = "DistânciaReal (km)",index_col = 0) 
         for cidade in df.index:
-            heuristica[cidade] = df2.loc[cidade, fim]
-        return heuristica
+            heur[cidade] = df2.loc[cidade, fim]
+        return heur
+
 
     #Algoritmo busca A*
     def busca_astar(grafo, inicio, fim, heuristica):
