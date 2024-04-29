@@ -4,6 +4,7 @@ from time import time
 from bfs_v2 import buscaBFS
 from astar import aStar
 import matplotlib.pyplot as plt
+import numpy as np
 
 df = pd.read_csv('graph.csv', index_col=0)
 
@@ -43,18 +44,22 @@ frequencia2 = {}
 for num in nos_visitados_lista2:
     frequencia2[num] = frequencia2.get(num, 0) + 1
 
-# Gráfico de barras
-fig, ax = plt.subplots()
+chaves = sorted(set(frequencia.keys()) | set(frequencia2.keys()))
 
-# Barras do BFS em azul
-ax.bar(frequencia.keys(), frequencia.values(), color='blue', label='BFS')
-# Barras do A* em vermelho
-ax.bar(frequencia2.keys(), frequencia2.values(), color='red', label='A*')
+largura = 0.2  
 
-ax.set_xlabel('Número de nós visitados')
-ax.set_ylabel('Frequência')
-ax.set_title('Frequência de nós visitados no BFS e A* - Custo tempo')
-ax.legend()
+posicoes = np.arange(len(chaves))
+
+plt.figure(figsize=(10, 6))
+
+barras1 = plt.bar(posicoes - largura / 2, [frequencia.get(chave, 0) for chave in chaves], largura, color='blue', label='BFS')
+barras2 = plt.bar(posicoes + largura / 2, [frequencia2.get(chave, 0) for chave in chaves], largura, color='red', label='A*')
+
+plt.xlabel('Número de nós visitados')
+plt.ylabel('Frequência')
+plt.title('Frequência de nós visitados no BFS e A* - Custo tempo')
+plt.xticks(posicoes, chaves)
+plt.legend()
 
 plt.show()
 
