@@ -52,6 +52,7 @@ def aStar(tipoCusto, inicio, fim):
 
     # Le as distancias de manhattan entre as cidades e o objetivo e registra elas em um vetor
     def lerHeuristica(caminhoHeuristica, fim):
+        heur = {}
         df2 = pd.read_excel(caminhoHeuristica,sheet_name = "DistânciaReal (km)",index_col = 0) 
         for cidade in df.index:
             heur[cidade] = df2.loc[cidade, fim]
@@ -88,12 +89,12 @@ def aStar(tipoCusto, inicio, fim):
             nosFechados.add(noAtual.cidade)
 
             # Avalia os nos vizinhos e os insere na lista
-            for vizinho in grafo[atual]:
+            for vizinho in grafo[noAtual.cidade]:
                 # Confere se o no ja foi visitado (A* so abre um no se ja se encontrou o melhor caminho para ele)
                 if vizinho in nosFechados:   
                     continue
 
-                g = atual.g + grafo.get_edge_data(vizinho, atual.cidade)['weight'] 
+                g = noAtual.g + grafo.get_edge_data(vizinho, noAtual.cidade)['weight'] 
                 h = heuristica[vizinho]
                 novoNo = Node(vizinho, noAtual, g, h)
 
@@ -110,7 +111,7 @@ def aStar(tipoCusto, inicio, fim):
     caminhoHeuristica = 'ViagensOrigemDestino.xlsx'
     heuristica = lerHeuristica(caminhoHeuristica, fim)
 
-    caminho, nosVisitados, custo = busca_astar(grafo, inicio, fim, heuristica)
+    caminho, nosVisitados, custo = busca_astar(Grafo, inicio, fim, heuristica)
 
     return caminho, custo, nosVisitados  
 
