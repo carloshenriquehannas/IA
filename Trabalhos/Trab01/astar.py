@@ -62,7 +62,7 @@ def aStar(tipoCusto, inicio, fim):
         if( tipoCusto == '1'):
             for h in heur:
                 h = h / 100
-        elif( tipoCusto == '2'):
+        elif( tipoCusto == '3'):
             for h in heur:
                 h = h * 3
 
@@ -84,12 +84,17 @@ def aStar(tipoCusto, inicio, fim):
         while nosAbertos:
             # Pega o elemento com menor valor de distancia
             noAtual = heapq.heappop(nosAbertos)
+            #print("\n Atual: ", noAtual.cidade, "\n Custo: ", noAtual.g, "\nHeuristica: ", noAtual.h, "\n") 
 
             # remove outras possibilidades de caminhos para um mesmo no que esta sendo aberto
             for no in nosAbertos:
                 if no.cidade == noAtual.cidade:
                     nosAbertos.remove(no)
             heapq.heapify(nosAbertos)
+
+            # Garante que o no nao foi visitado
+            if noAtual.cidade in nosFechados:
+                continue
 
             nosVisitados += 1
 
@@ -110,7 +115,7 @@ def aStar(tipoCusto, inicio, fim):
             for vizinho in grafo[noAtual.cidade]:
                 # Confere se o no ja foi visitado (A* so abre um no se ja se encontrou o melhor caminho para ele)
                 if vizinho in nosFechados:   
-                    # print("\n No ja fechado\n")
+                    #print("\n No ja fechado\n")
                     continue
 
                 g = noAtual.g + grafo.get_edge_data(vizinho, noAtual.cidade)['weight'] 
@@ -124,9 +129,9 @@ def aStar(tipoCusto, inicio, fim):
                 else:
                     #Caso cotrario, insere o novo no                    
                     heapq.heappush(nosAbertos, novoNo)
-                    # print("\n Novo no: ", novoNo.cidade, "\n Custo: ", novoNo.g, "\nHeuristica: ", novoNo.h, "\n") 
+                    #print("\n Novo no: ", novoNo.cidade, "\n Custo: ", novoNo.g, "\nHeuristica: ", novoNo.h, "\n") 
 
-        return None, nosVisitados # Nao achou caminho
+        return None, nosVisitados, None # Nao achou caminho
     
     caminhoHeuristica = 'ViagensOrigemDestino.xlsx'
     heuristica = lerHeuristica(caminhoHeuristica, fim, tipoCusto)
