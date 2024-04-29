@@ -27,7 +27,7 @@ def aStar(tipoCusto, inicio, fim):
         tipoCusto = "O preço do Combustível"
     else:
         # Tipo fornecido invalido, erro
-        print("\nTipo invalido\n")
+        # print("\nTipo invalido\n")
         sys.exit()
 
     # Usa-se a biblioteca networkx para criar o grafo direcionado
@@ -47,7 +47,7 @@ def aStar(tipoCusto, inicio, fim):
 
     # Verifica a entrada do usuario
     if not Grafo.has_node(inicio) or not Grafo.has_node(fim):
-        print("\nNós de entrada invalidos\n")
+        # print("\nNós de entrada invalidos\n")
         sys.exit()
 
     # Le as distancias de manhattan entre as cidades e o objetivo e registra elas em um vetor
@@ -110,7 +110,7 @@ def aStar(tipoCusto, inicio, fim):
             for vizinho in grafo[noAtual.cidade]:
                 # Confere se o no ja foi visitado (A* so abre um no se ja se encontrou o melhor caminho para ele)
                 if vizinho in nosFechados:   
-                    print("\n No ja fechado\n")
+                    # print("\n No ja fechado\n")
                     continue
 
                 g = noAtual.g + grafo.get_edge_data(vizinho, noAtual.cidade)['weight'] 
@@ -124,7 +124,7 @@ def aStar(tipoCusto, inicio, fim):
                 else:
                     #Caso cotrario, insere o novo no                    
                     heapq.heappush(nosAbertos, novoNo)
-                    print("\n Novo no: ", novoNo.cidade, "\n Custo: ", novoNo.g, "\nHeuristica: ", novoNo.h, "\n") 
+                    # print("\n Novo no: ", novoNo.cidade, "\n Custo: ", novoNo.g, "\nHeuristica: ", novoNo.h, "\n") 
 
         return None, nosVisitados # Nao achou caminho
     

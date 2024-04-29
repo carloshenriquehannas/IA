@@ -26,11 +26,6 @@ frequencia = {}
 for num in nos_visitados_lista:
     frequencia[num] = frequencia.get(num, 0) + 1
 
-plt.bar(frequencia.keys(), frequencia.values())
-plt.xlabel('Número de nós visitados')
-plt.ylabel('Frequência')
-plt.title('Frequência de nós visitados no BFS')
-plt.show()
 
 # A*
 nos_visitados_lista2 = []
@@ -40,20 +35,27 @@ erros = []
 for dupla in duplas_cidades:
     origem, destino = dupla
     inicio = time()
-    _, _, num_visitados = aStar('2', origem, destino)        
+    _, _, num_visitados = aStar('1', origem, destino)        
     tempos_a.append(time() - inicio)
     nos_visitados_lista2.append(num_visitados)
 
-print(nos_visitados_lista2)
-
-frequencia = {}
+frequencia2 = {}
 for num in nos_visitados_lista2:
-    frequencia[num] = frequencia.get(num, 0) + 1
+    frequencia2[num] = frequencia2.get(num, 0) + 1
 
-plt.bar(frequencia.keys(), frequencia.values())
-plt.xlabel('Número de nós visitados')
-plt.ylabel('Frequência')
-plt.title('Frequência de nós visitados no A*')
+# Gráfico de barras
+fig, ax = plt.subplots()
+
+# Barras do BFS em azul
+ax.bar(frequencia.keys(), frequencia.values(), color='blue', label='BFS')
+# Barras do A* em vermelho
+ax.bar(frequencia2.keys(), frequencia2.values(), color='red', label='A*')
+
+ax.set_xlabel('Número de nós visitados')
+ax.set_ylabel('Frequência')
+ax.set_title('Frequência de nós visitados no BFS e A* - Custo tempo')
+ax.legend()
+
 plt.show()
 
 media_tempos1 = sum(tempos_bfs) / len(tempos_bfs)
