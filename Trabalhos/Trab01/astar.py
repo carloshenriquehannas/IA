@@ -53,9 +53,10 @@ def aStar(tipoCusto, inicio, fim):
     # Le as distancias de manhattan entre as cidades e o objetivo e registra elas em um vetor
     def lerHeuristica(caminhoHeuristica, fim):
         heur = {}
-        df2 = pd.read_excel(caminhoHeuristica,sheet_name = "DistânciaReal (km)",index_col = 0) 
-        for cidade in df.index:
+        df2 = pd.read_csv('ViagensOrigemDestino.csv', index_col = 0)
+        for cidade in df2.index:
             heur[cidade] = df2.loc[cidade, fim]
+        heur[fim] = 0
         return heur
 
 
@@ -67,7 +68,7 @@ def aStar(tipoCusto, inicio, fim):
         nosAbertos = []
         nosFechados = set()
 
-        noInicial = Node(inicio, g=0, h=heuristica[inicio])
+        noInicial = Node(inicio,None, g=0, h=heuristica[inicio])
         heapq.heappush(nosAbertos,noInicial)
 
         # Corpo do algoritmo
@@ -88,6 +89,8 @@ def aStar(tipoCusto, inicio, fim):
         
             nosFechados.add(noAtual.cidade)
 
+            print("\n No atual: ", noAtual.cidade, "\n Custo: ", noAtual.g + noAtual.h, "\n") 
+
             # Avalia os nos vizinhos e os insere na lista
             for vizinho in grafo[noAtual.cidade]:
                 # Confere se o no ja foi visitado (A* so abre um no se ja se encontrou o melhor caminho para ele)
@@ -97,6 +100,7 @@ def aStar(tipoCusto, inicio, fim):
                 g = noAtual.g + grafo.get_edge_data(vizinho, noAtual.cidade)['weight'] 
                 h = heuristica[vizinho]
                 novoNo = Node(vizinho, noAtual, g, h)
+                print("\n Novo no: ", novoNo.cidade, "\n Custo: ", novoNo.g, "\nHeuristica: ", novoNo.h, "\n") 
 
                 # Checa se ja existe um caminho melhor para esse no
                 for no in nosAbertos:
@@ -106,6 +110,7 @@ def aStar(tipoCusto, inicio, fim):
                     #Caso cotrario, insere o novo no
                     heapq.heappush(nosAbertos, novoNo)
 
+                print("\n Numero de nos abertos: ", nosAbertos.count, "\n")
         return None, nosVisitados # Nao achou caminho
     
     caminhoHeuristica = 'ViagensOrigemDestino.xlsx'
