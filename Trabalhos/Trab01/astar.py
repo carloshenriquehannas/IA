@@ -51,12 +51,21 @@ def aStar(tipoCusto, inicio, fim):
         sys.exit()
 
     # Le as distancias de manhattan entre as cidades e o objetivo e registra elas em um vetor
-    def lerHeuristica(caminhoHeuristica, fim):
+    def lerHeuristica(caminhoHeuristica, fim, tipoCusto):
         heur = {}
         df2 = pd.read_csv('ViagensOrigemDestino.csv', index_col = 0)
         for cidade in df2.index:
             heur[cidade] = df2.loc[cidade, fim]
         heur[fim] = 0
+        
+        # ajustando os valores para o tipo de analise
+        if( tipoCusto == '1'):
+            for h in heur:
+                h = h / 100
+        elif( tipoCusto == '2'):
+            for h in heur:
+                h = h * 3
+
         return heur
 
 
@@ -75,7 +84,16 @@ def aStar(tipoCusto, inicio, fim):
         while nosAbertos:
             # Pega o elemento com menor valor de distancia
             noAtual = heapq.heappop(nosAbertos)
+
+            # remove outras possibilidades de caminhos para um mesmo no que esta sendo aberto
+            for no in nosAbertos:
+                if no.cidade == noAtual.cidade:
+                    nosAbertos.remove(no)
+            heapq.heapify(nosAbertos)
+
+
             nosVisitados += 1
+            print("\n Numero de nos visistados: ", nosVisitados, "\n")
 
             #condicao de parada
             if (noAtual.cidade == fim):
@@ -83,38 +101,39 @@ def aStar(tipoCusto, inicio, fim):
                 caminho = []
                 custo = noAtual.g
                 while noAtual:
-                    caminho.append(noAtual.cidade)
+                    caminho.insert(0,noAtual.cidade)
                     noAtual = noAtual.antecessor
                 return caminho, nosVisitados, custo  
         
             nosFechados.add(noAtual.cidade)
 
-            print("\n No atual: ", noAtual.cidade, "\n Custo: ", noAtual.g + noAtual.h, "\n") 
+            print("\n No atual: ", noAtual.cidade, "\n Custo: ", noAtual.g, "\n Heuristica: ", noAtual.h, "\n") 
 
             # Avalia os nos vizinhos e os insere na lista
             for vizinho in grafo[noAtual.cidade]:
                 # Confere se o no ja foi visitado (A* so abre um no se ja se encontrou o melhor caminho para ele)
                 if vizinho in nosFechados:   
+                    print("\n No ja fechado\n")
                     continue
 
                 g = noAtual.g + grafo.get_edge_data(vizinho, noAtual.cidade)['weight'] 
                 h = heuristica[vizinho]
                 novoNo = Node(vizinho, noAtual, g, h)
-                print("\n Novo no: ", novoNo.cidade, "\n Custo: ", novoNo.g, "\nHeuristica: ", novoNo.h, "\n") 
 
                 # Checa se ja existe um caminho melhor para esse no
                 for no in nosAbertos:
                     if no.cidade == vizinho and (no.g + no.h) <= (g + h):
                         break
                 else:
-                    #Caso cotrario, insere o novo no
+                    #Caso cotrario, insere o novo no                    
                     heapq.heappush(nosAbertos, novoNo)
+                    print("\n Novo no: ", novoNo.cidade, "\n Custo: ", novoNo.g, "\nHeuristica: ", novoNo.h, "\n") 
 
-                print("\n Numero de nos abertos: ", nosAbertos.count, "\n")
+                print("\n Numero de nos abertos: ", len(nosAbertos), "\n")
         return None, nosVisitados # Nao achou caminho
     
     caminhoHeuristica = 'ViagensOrigemDestino.xlsx'
-    heuristica = lerHeuristica(caminhoHeuristica, fim)
+    heuristica = lerHeuristica(caminhoHeuristica, fim, tipoCusto)
 
     caminho, nosVisitados, custo = busca_astar(Grafo, inicio, fim, heuristica)
 
