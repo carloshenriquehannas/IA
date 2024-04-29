@@ -91,9 +91,7 @@ def aStar(tipoCusto, inicio, fim):
                     nosAbertos.remove(no)
             heapq.heapify(nosAbertos)
 
-
             nosVisitados += 1
-            print("\n Numero de nos visistados: ", nosVisitados, "\n")
 
             #condicao de parada
             if (noAtual.cidade == fim):
@@ -107,7 +105,6 @@ def aStar(tipoCusto, inicio, fim):
         
             nosFechados.add(noAtual.cidade)
 
-            print("\n No atual: ", noAtual.cidade, "\n Custo: ", noAtual.g, "\n Heuristica: ", noAtual.h, "\n") 
 
             # Avalia os nos vizinhos e os insere na lista
             for vizinho in grafo[noAtual.cidade]:
@@ -129,7 +126,6 @@ def aStar(tipoCusto, inicio, fim):
                     heapq.heappush(nosAbertos, novoNo)
                     print("\n Novo no: ", novoNo.cidade, "\n Custo: ", novoNo.g, "\nHeuristica: ", novoNo.h, "\n") 
 
-                print("\n Numero de nos abertos: ", len(nosAbertos), "\n")
         return None, nosVisitados # Nao achou caminho
     
     caminhoHeuristica = 'ViagensOrigemDestino.xlsx'
