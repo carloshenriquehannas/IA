@@ -1,6 +1,7 @@
 import pandas as pd
 import networkx as nx
 import sys
+from collections import deque
 
 # Solicita ao usuário escolher um tipo de custo
 # print("Qual o tipo de custo desejado?\n1-Tempo\n2-Distância\n3-Custo do combustível")
@@ -24,7 +25,7 @@ def buscaBFS(tipoCusto, inicio, fim):
 
 
     # Usa a biblioteca networkx para criar um grafo direcionado
-    Grafo = nx.DiGraph()
+    Grafo = nx.Graph()
 
     # Adiciona os nós do dataframe ao grafo
     Grafo.add_nodes_from(df.index)
@@ -56,14 +57,16 @@ def buscaBFS(tipoCusto, inicio, fim):
     def bfs_caminho(grafo, inicio, destino):
         num_visitados = 0
         # Adiciona o nó inicial a fila e ao conjunto de visitados
-        queue = [inicio]
-        visitados = {inicio}
+        queue = deque([inicio])
+        visitados = set([inicio])
+        #visitados = {inicio}
         # Declara um dicionário para armazenar o nó anterior do nó visitado
         antecessores = {inicio : None}
 
         # Percorre a fila
         while queue:
-            atual = queue.pop(0)
+            atual = queue.popleft()
+            num_visitados += 1 # incrementa o número de nós visitados
 
             # condição de parada se chegar ao destino
             if (atual == destino):
@@ -71,13 +74,12 @@ def buscaBFS(tipoCusto, inicio, fim):
                 return antecessores ,num_visitados
 
             # Explora os vizinhos do nó atual 
-            for vizinho in grafo[atual]:
+            for vizinho in grafo.neighbors(atual):
                 # Confere se o nó já não foi visitado
                 if vizinho not in visitados:
                     queue.append(vizinho) # Adiciona o vizinho à fila
                     visitados.add(vizinho) # Marca o vizinho como visitado
                     antecessores[vizinho] = atual # Vincula o antecessor
-                    num_visitados += 1 # incrementa o número de nós visitados
 
         # Caso não encontre nenhum caminho
         return None, num_visitados

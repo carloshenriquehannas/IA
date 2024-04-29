@@ -4,6 +4,7 @@ from time import time
 from bfs_v2 import buscaBFS
 from astar import aStar
 import matplotlib.pyplot as plt
+from nx2 import bfs_with_stop
 
 df = pd.read_csv('graph.csv', index_col=0)
 
@@ -19,6 +20,7 @@ for dupla in duplas_cidades:
     origem, destino = dupla
     inicio = time()
     _, _, num_visitados = buscaBFS('1', origem, destino)
+#    _, _, num_visitados = bfs_with_stop(origem,destino)
     tempos_bfs.append(time() - inicio)
     nos_visitados_lista.append(num_visitados)
 
