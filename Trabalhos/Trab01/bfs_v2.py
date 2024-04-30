@@ -24,7 +24,7 @@ def buscaBFS(tipoCusto, inicio, fim):
         sys.exit()
 
 
-    # Usa a biblioteca networkx para criar um grafo direcionado
+    # Usa a biblioteca networkx para criar um grafo
     Grafo = nx.Graph()
 
     # Adiciona os nós do dataframe ao grafo
@@ -51,15 +51,14 @@ def buscaBFS(tipoCusto, inicio, fim):
             custo += peso
         return custo
 
-    # Numero total de nós visitados
 
     # Função para fazer a busca em largura
     def bfs_caminho(grafo, inicio, destino):
         num_visitados = 0
         # Adiciona o nó inicial a fila e ao conjunto de visitados
         queue = deque([inicio])
+        # a estrutura set é melhor pra ver se o nó já foi visitado
         visitados = set([inicio])
-        #visitados = {inicio}
         # Declara um dicionário para armazenar o nó anterior do nó visitado
         antecessores = {inicio : None}
 
