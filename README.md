@@ -10,5 +10,6 @@ Atividades práticas de Inteligência Artificial.
 
 ## Trabalhos
   ### Trabalho 1
+    Estuda-se os problemas de buscas informada (algoritmo A*) e não-informada (algoritmo de busca em largura) em grafos, para análise de otimalidade de soluções. Modelou-se o problema de buscas em linhas rodoviárias, de uma cidade origem para uma cidade destino, quando não há uma rota direta entre os municípios, considerando custos (distância, tempo e custo de combustível) de viagem. A otimização da rota traz benefícios para a companhia, através da redução de custos operacionais, e, consequentemento, ao cliente, que terá um transporte mais acessível.
   ### Trabalho 2
 
