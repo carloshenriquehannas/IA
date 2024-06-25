@@ -12,4 +12,5 @@ Atividades práticas de Inteligência Artificial.
   ### Trabalho 1
   Estuda-se os problemas de buscas informada (algoritmo A*) e não-informada (algoritmo de busca em largura) em grafos, para análise de otimalidade de soluções. Modelou-se o problema de buscas em linhas rodoviárias, de uma cidade origem para uma cidade destino, quando não há uma rota direta entre os municípios, considerando custos (distância, tempo e custo de combustível) de viagem. A otimização da rota traz benefícios para a companhia, através da redução de custos operacionais, e, consequentemento, ao cliente, que terá um transporte mais acessível.
   ### Trabalho 2
+  Analisou-se, estatisticamente, um dataset sobre enchentes em áreas urbanas, disponível em: <https://www.kaggle.com/competitions/playground-series-s4e5>, para extrair informação e conhecimento sobre uma causa relevante à população brasileira e mundial. O evento acontecido no Rio Grande do Sul (2024) motivou a realizar essas análises, a fim de prever acontecimentos semelhantes e contribuir com os dados para as medidad de políticas públicas.
 
